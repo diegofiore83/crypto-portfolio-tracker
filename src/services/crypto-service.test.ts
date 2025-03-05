@@ -5,6 +5,10 @@ import { CryptoAsset, MarketData } from "./crypto-types";
 jest.mock("axios");
 
 describe("CryptoService", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   test("should fetch coin list", async () => {
     const mockData: CryptoAsset[] = [
       {
@@ -69,16 +73,7 @@ describe("CryptoService", () => {
     const result = await CryptoService.getCoinList();
     expect(result).toEqual(mockData);
     expect(axios.get).toHaveBeenCalledWith(
-      "https://api.coingecko.com/api/v3/coins/markets",
-      {
-        params: {
-          vs_currency: "usd",
-          order: "market_cap_desc",
-          per_page: 100,
-          page: 1,
-          sparkline: false,
-        },
-      }
+      "https://crypto.neapoliswebdigital.com/api/crypto/list"
     );
   });
 
@@ -115,13 +110,8 @@ describe("CryptoService", () => {
     const result = await CryptoService.getCoinHistory("bitcoin");
     expect(result).toEqual(mockData);
     expect(axios.get).toHaveBeenCalledWith(
-      "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart",
+      "https://crypto.neapoliswebdigital.com/api/crypto/market-chart?id=bitcoin",
       {
-        params: {
-          vs_currency: "usd",
-          days: 30,
-          interval: "daily",
-        },
         signal: undefined,
       }
     );

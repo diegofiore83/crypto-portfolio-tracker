@@ -5,16 +5,7 @@ const CryptoService = {
   async getCoinList(): Promise<CryptoAsset[]> {
     try {
       const response = await axios.get(
-        "https://api.coingecko.com/api/v3/coins/markets",
-        {
-          params: {
-            vs_currency: "usd",
-            order: "market_cap_desc",
-            per_page: 100,
-            page: 1,
-            sparkline: false,
-          },
-        }
+        "https://crypto.neapoliswebdigital.com/api/crypto/list"
       );
       return response.data;
     } catch (error) {
@@ -28,13 +19,8 @@ const CryptoService = {
   ): Promise<MarketData> {
     try {
       const response = await axios.get(
-        `https://api.coingecko.com/api/v3/coins/${id}/market_chart`,
+        `https://crypto.neapoliswebdigital.com/api/crypto/market-chart?id=${id}`,
         {
-          params: {
-            vs_currency: "usd",
-            days: 30,
-            interval: "daily",
-          },
           signal: abortSignal, // Allow request cancellation
         }
       );
