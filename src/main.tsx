@@ -10,7 +10,7 @@ import "@fontsource/montserrat/700.css";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename="/crypto-portfolio-tracker">
         <App />
       </BrowserRouter>
     </Provider>
