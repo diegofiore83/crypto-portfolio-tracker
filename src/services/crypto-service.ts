@@ -1,19 +1,19 @@
 import axios from "axios";
-import { CryptoAsset, MarketData } from "./crypto-types";
+import { CryptoAsset, MarketData } from "../store/types";
 
 const CryptoService = {
-  async getCoinList(): Promise<CryptoAsset[]> {
+  async getCryptoList(): Promise<CryptoAsset[]> {
     try {
       const response = await axios.get(
         "https://crypto.neapoliswebdigital.com/api/crypto/list"
       );
       return response.data;
     } catch (error) {
-      console.error("Error fetching coin list:", error);
-      throw new Error("Failed to fetch coin list.");
+      console.error("Error fetching crypto list:", error);
+      throw new Error("Failed to fetch crypto list.");
     }
   },
-  async getCoinHistory(
+  async getCryptoHistory(
     id: string,
     abortSignal?: AbortSignal
   ): Promise<MarketData> {
@@ -31,7 +31,7 @@ const CryptoService = {
       } else {
         console.error(`Error fetching history for ${id}:`, error);
       }
-      throw new Error("Failed to fetch coin history.");
+      throw new Error("Failed to fetch crypto history.");
     }
   },
 };

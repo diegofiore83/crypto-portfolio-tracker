@@ -11,6 +11,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "types": [
+      "jest",
+      "@testing-library/jest-dom",
+      "node"
+    ],
+    "moduleResolution": "node",
     "skipLibCheck": true,
     "paths": {
       "@/*": [

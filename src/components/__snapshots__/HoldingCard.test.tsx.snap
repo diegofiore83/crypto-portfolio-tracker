@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HoldingCard Component renders HoldingCard correctly (snapshot) 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiGrid2-root MuiGrid2-direction-xs-row MuiGrid2-grid-xs-12 MuiGrid2-grid-sm-6 MuiGrid2-grid-md-4 MuiGrid2-grid-lg-3 css-bz5kom-MuiGrid2-root"
+  >
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1j74uew-MuiPaper-root-MuiCard-root"
+      style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
+    >
+      <div
+        class="MuiCardHeader-root css-149tc0y-MuiCardHeader-root"
+      >
+        <div
+          class="MuiCardHeader-avatar css-1r9wl67-MuiCardHeader-avatar"
+        >
+          <div
+            class="MuiAvatar-root MuiAvatar-circular css-ci7oj7-MuiAvatar-root"
+          >
+            <img
+              alt="Bitcoin"
+              class="MuiAvatar-img css-1su80sj-MuiAvatar-img"
+              src="https://example.com/bitcoin.png"
+            />
+          </div>
+        </div>
+        <div
+          class="MuiCardHeader-content css-1jkp9bu-MuiCardHeader-content"
+        >
+          <span
+            class="MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-7ctihp-MuiTypography-root"
+          >
+            <div
+              class="MuiBox-root css-1lekzkb"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-lhsbas-MuiTypography-root"
+              >
+                BTC
+              </p>
+            </div>
+          </span>
+          <h6
+            class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-noWrap css-14ggmo7-MuiTypography-root"
+          >
+            Bitcoin
+          </h6>
+        </div>
+      </div>
+      <div
+        class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+      >
+        <div
+          class="MuiBox-root css-1y359bf"
+        >
+          <div
+            class="MuiBox-root css-n64gf7"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-1wle3ir-MuiTypography-root"
+            >
+              Quantity
+            </p>
+            <p
+              class="MuiTypography-root MuiTypography-body1 css-rt9437-MuiTypography-root"
+            >
+              2
+            </p>
+          </div>
+          <div
+            class="MuiBox-root css-n64gf7"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-1wle3ir-MuiTypography-root"
+            >
+              Current Price
+            </p>
+            <p
+              class="MuiTypography-root MuiTypography-body1 css-rt9437-MuiTypography-root"
+            >
+              $50,000
+            </p>
+          </div>
+          <hr
+            class="MuiDivider-root MuiDivider-fullWidth css-hv6zls-MuiDivider-root"
+          />
+          <div
+            class="MuiBox-root css-69i1ev"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body1 css-65t5jw-MuiTypography-root"
+            >
+              Total Value
+            </p>
+            <p
+              class="MuiTypography-root MuiTypography-body1 css-sk0gwb-MuiTypography-root"
+            >
+              $100,000.00
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiCardActions-root MuiCardActions-spacing css-1q4nm6f-MuiCardActions-root"
+      >
+        <div
+          class="MuiBox-root css-1kms82h"
+        >
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1ccsd5i-MuiButtonBase-root-MuiButton-root"
+            tabindex="0"
+            type="button"
+          >
+            Edit BTC
+          </button>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textError MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorError MuiButton-root MuiButton-text MuiButton-textError MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorError css-1nrx54a-MuiButtonBase-root-MuiButton-root"
+            tabindex="0"
+            type="button"
+          >
+            Delete BTC
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

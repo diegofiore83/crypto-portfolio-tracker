@@ -2,21 +2,22 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
+    mode: "dark",
     primary: {
-      main: "#1976d2",
-    },
-    secondary: {
-      main: "#ff4081",
+      main: "#FFD700",
     },
     background: {
-      default: "#f4f6f8",
+      default: "#121212",
+      paper: "#1E1E1E",
     },
   },
   typography: {
-    fontFamily: "Roboto, Arial, sans-serif",
-    body1: {
-      fontSize: "1rem",
-      lineHeight: 1.5,
+    fontFamily: "Montserrat, Arial, sans-serif",
+    h5: {
+      fontWeight: 700,
+    },
+    h6: {
+      fontWeight: 700,
     },
   },
   spacing: 4,

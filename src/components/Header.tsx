@@ -6,18 +6,15 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <AppBar position="static" color="transparent">
+    <AppBar position="static" color="transparent" elevation={0}>
       <Container>
-        <Toolbar>
+        <Toolbar disableGutters sx={{ justifyContent: "center" }}>
           <Typography
+            variant="h5"
+            color="primary"
             onClick={() => navigate("/")}
             sx={{
-              flex: 1,
-              color: "gold",
-              fontWeight: "bold",
               cursor: "pointer",
-              textAlign: "center",
-              fontSize: "1.5rem",
             }}
           >
             Crypto Portfolio Tracker

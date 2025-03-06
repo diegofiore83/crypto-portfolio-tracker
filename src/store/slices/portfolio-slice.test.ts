@@ -3,7 +3,7 @@ import portfolioReducer, {
   editCrypto,
   deleteCrypto,
 } from "./portfolio-slice";
-import { CryptoHolding } from "./types";
+import { CryptoHolding } from "../types";
 
 describe("portfolioSlice", () => {
   let initialState: CryptoHolding[];
@@ -11,29 +11,20 @@ describe("portfolioSlice", () => {
   beforeEach(() => {
     initialState = [
       {
-        name: "Bitcoin",
-        symbol: "BTC",
+        id: "bitcoin",
         quantity: 2,
-        currentPrice: 60000,
-        totalValue: 120000,
       },
       {
-        name: "Ethereum",
-        symbol: "ETH",
+        id: "ethereum",
         quantity: 5,
-        currentPrice: 4000,
-        totalValue: 20000,
       },
     ];
   });
 
   test("should add a new crypto holding", () => {
     const newCrypto: CryptoHolding = {
-      name: "Solana",
-      symbol: "SOL",
+      id: "solana",
       quantity: 10,
-      currentPrice: 150,
-      totalValue: 1500,
     };
 
     const newState = portfolioReducer(initialState, addCrypto(newCrypto));
@@ -44,35 +35,29 @@ describe("portfolioSlice", () => {
 
   test("should edit an existing crypto holding", () => {
     const updatedCrypto: CryptoHolding = {
-      name: "Ethereum",
-      symbol: "ETH",
+      id: "ethereum",
       quantity: 10,
-      currentPrice: 4500,
-      totalValue: 45000,
     };
 
     const newState = portfolioReducer(initialState, editCrypto(updatedCrypto));
 
     expect(newState).toHaveLength(2);
-    expect(newState.find((crypto) => crypto.symbol === "ETH")).toEqual(
+    expect(newState.find((crypto) => crypto.id === "ethereum")).toEqual(
       updatedCrypto
     );
   });
 
   test("should delete a crypto holding", () => {
-    const newState = portfolioReducer(initialState, deleteCrypto("BTC"));
+    const newState = portfolioReducer(initialState, deleteCrypto("bitcoin"));
 
     expect(newState).toHaveLength(1);
-    expect(newState.find((crypto) => crypto.symbol === "BTC")).toBeUndefined();
+    expect(newState.find((crypto) => crypto.id === "bitcoin")).toBeUndefined();
   });
 
   test("should not edit a non-existing crypto holding", () => {
     const updatedCrypto: CryptoHolding = {
-      name: "Ripple",
-      symbol: "XRP",
+      id: "ripple",
       quantity: 500,
-      currentPrice: 1,
-      totalValue: 500,
     };
 
     const newState = portfolioReducer(initialState, editCrypto(updatedCrypto));
@@ -95,11 +80,8 @@ describe("portfolioSlice localStorage", () => {
 
   test("should store updated portfolio in local storage when adding crypto", () => {
     const newCrypto: CryptoHolding = {
-      name: "Solana",
-      symbol: "SOL",
+      id: "solana",
       quantity: 10,
-      currentPrice: 150,
-      totalValue: 1500,
     };
 
     portfolioReducer([], addCrypto(newCrypto));

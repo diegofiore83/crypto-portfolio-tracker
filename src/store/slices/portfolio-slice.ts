@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CryptoHolding } from "./types";
+import { CryptoHolding } from "../types";
 
 const loadFromLocalStorage = (): CryptoHolding[] => {
   const data = localStorage.getItem("portfolio");
@@ -22,7 +22,7 @@ const portfolioSlice = createSlice({
     },
     editCrypto: (state, action: PayloadAction<CryptoHolding>) => {
       const index = state.findIndex(
-        (crypto) => crypto.symbol === action.payload.symbol
+        (crypto) => crypto.id === action.payload.id
       );
       if (index !== -1) {
         state[index] = action.payload;
@@ -30,9 +30,7 @@ const portfolioSlice = createSlice({
       }
     },
     deleteCrypto: (state, action: PayloadAction<string>) => {
-      const newState = state.filter(
-        (crypto) => crypto.symbol !== action.payload
-      );
+      const newState = state.filter((crypto) => crypto.id !== action.payload);
       saveToLocalStorage(newState);
       return newState;
     },

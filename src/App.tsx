@@ -1,31 +1,38 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { Box, Container } from "@mui/material";
+import { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import { Box, Container, CssBaseline } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+import { useAppDispatch } from "./store/hooks";
 import Header from "./components/Header";
-import HomePage from "./pages/HomePage";
-import CoinsPage from "./pages/CoinPage";
-import "@/App.css";
+import Error from "./components/Error";
+import CoinsPage from "./pages/CryptoPage";
+import PortfolioPage from "./pages/PortfolioPage";
+import { fetchCryptoAssets } from "./store/slices/crypto-slice";
+import theme from "./theme";
+import "@fontsource/montserrat/400.css";
+import "@fontsource/montserrat/700.css";
 
 const App = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCryptoAssets()); // Fetch data on mount
+  }, [dispatch]);
+
   return (
-    <Box
-      sx={{
-        backgroundColor: "#14161A",
-        color: "white",
-        minHeight: "100vh",
-        fontFamily: "Montserrat",
-      }}
-    >
-      <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box sx={{ minHeight: "100vh" }}>
         <Header />
         <Container>
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<PortfolioPage />} />
             <Route path="/coins/:id" element={<CoinsPage />} />
-            <Route path="*" element={<div>Not found</div>} />
+            <Route path="*" element={<Error message="Page not found." />} />
           </Routes>
         </Container>
-      </BrowserRouter>
-    </Box>
+      </Box>
+    </ThemeProvider>
   );
 };
 
