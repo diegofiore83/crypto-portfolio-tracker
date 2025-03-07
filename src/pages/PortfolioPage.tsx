@@ -31,6 +31,12 @@ const PortfolioPage: React.FC = () => {
       <Typography variant="h6" marginY={4}>
         Your Holdings
       </Typography>
+      {enrichedPortfolio.length === 0 && (
+        <Typography variant="body1" marginBottom={2}>
+          You can add more cryptocurrencies to your portfolio by clicking on the
+          cards below.
+        </Typography>
+      )}
       <Grid container spacing={2}>
         {enrichedPortfolio
           .filter((item) => item !== null)

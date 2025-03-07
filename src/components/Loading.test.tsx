@@ -14,7 +14,6 @@ describe("Loading Component", () => {
   test("renders CircularProgress spinner", () => {
     render(<Loading message="Loading test" />);
 
-    // ✅ Look for the progress indicator using role
     expect(screen.getByRole("progressbar")).toBeInTheDocument();
   });
 });

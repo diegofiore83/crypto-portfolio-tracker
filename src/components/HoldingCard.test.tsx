@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { configureStore } from "@reduxjs/toolkit";
+import { MemoryRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import portfolioReducer from "../store/slices/portfolio-slice";
 import { CryptoHolding } from "../store/types";
@@ -30,7 +31,11 @@ describe("HoldingCard Component", () => {
   });
 
   const renderWithProvider = (component: React.ReactElement) =>
-    render(<Provider store={store}>{component}</Provider>);
+    render(
+      <Provider store={store}>
+        <MemoryRouter>{component}</MemoryRouter>
+      </Provider>
+    );
 
   test("renders HoldingCard correctly (snapshot)", () => {
     const { asFragment } = renderWithProvider(<HoldingCard {...mockProps} />);

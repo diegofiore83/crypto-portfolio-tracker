@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Box,
   Card,
@@ -70,6 +71,9 @@ const CryptoCard: React.FC<CryptoCardProps> = ({
     <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
       <Card>
         <CardHeader
+          component={Link}
+          to={`/crypto/${id}`}
+          sx={{ textDecoration: "none", cursor: "pointer", color: "inherit" }}
           avatar={
             <Avatar
               alt={name}

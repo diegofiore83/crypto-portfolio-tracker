@@ -2,10 +2,11 @@ import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Box, Container, CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
+import { ToastContainer } from "react-toastify";
 import { useAppDispatch } from "./store/hooks";
 import Header from "./components/Header";
 import Error from "./components/Error";
-import CoinsPage from "./pages/CryptoPage";
+import CryptoPage from "./pages/CryptoPage";
 import PortfolioPage from "./pages/PortfolioPage";
 import { fetchCryptoAssets } from "./store/slices/crypto-slice";
 import theme from "./theme";
@@ -27,10 +28,11 @@ const App = () => {
         <Container>
           <Routes>
             <Route path="/" element={<PortfolioPage />} />
-            <Route path="/coins/:id" element={<CoinsPage />} />
+            <Route path="/crypto/:id" element={<CryptoPage />} />
             <Route path="*" element={<Error message="Page not found." />} />
           </Routes>
         </Container>
+        <ToastContainer position="bottom-right" autoClose={3000} />
       </Box>
     </ThemeProvider>
   );

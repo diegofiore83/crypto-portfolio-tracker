@@ -16,7 +16,7 @@ jest.mock("@fontsource/montserrat/700.css", () => null);
 // Mock Store
 const preloadedState: { crypto: CryptoState } = {
   crypto: {
-    assets: {}, // ✅ Must be an object, not an array
+    assets: {},
     status: "idle",
   },
 };
@@ -39,7 +39,7 @@ jest.mock("./pages/PortfolioPage", () => () => (
   <div data-testid="portfolio-page">Portfolio Page</div>
 ));
 jest.mock("./pages/CryptoPage", () => () => (
-  <div data-testid="crypto-page">Coin Page</div>
+  <div data-testid="crypto-page">Crypto Page</div>
 ));
 jest.mock("./components/Header", () => () => (
   <header data-testid="header">Header</header>
@@ -65,13 +65,13 @@ describe("App Component", () => {
     expect(screen.getByTestId("portfolio-page")).toBeInTheDocument();
   });
 
-  test("navigates to CoinsPage when visiting a crypto route", async () => {
+  test("navigates to CryptoPage when visiting a crypto route", async () => {
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["/coins/bitcoin"]}>
+        <MemoryRouter initialEntries={["/crypto/bitcoin"]}>
           <ThemeProvider theme={theme}>
             <Routes>
-              <Route path="/coins/:id" element={<CryptoPage />} />
+              <Route path="/crypto/:id" element={<CryptoPage />} />
             </Routes>
           </ThemeProvider>
         </MemoryRouter>

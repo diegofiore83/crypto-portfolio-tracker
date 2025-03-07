@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import { CryptoHolding } from "../types";
 
 const loadFromLocalStorage = (): CryptoHolding[] => {
@@ -19,6 +20,9 @@ const portfolioSlice = createSlice({
     addCrypto: (state, action: PayloadAction<CryptoHolding>) => {
       state.push(action.payload);
       saveToLocalStorage(state);
+      toast.success(
+        `${action.payload.id.toUpperCase()} added to your portfolio!`
+      );
     },
     editCrypto: (state, action: PayloadAction<CryptoHolding>) => {
       const index = state.findIndex(
@@ -27,11 +31,19 @@ const portfolioSlice = createSlice({
       if (index !== -1) {
         state[index] = action.payload;
         saveToLocalStorage(state);
+        toast.info(
+          `Updated ${action.payload.id.toUpperCase()} quantity to ${
+            action.payload.quantity
+          }.`
+        );
       }
     },
     deleteCrypto: (state, action: PayloadAction<string>) => {
       const newState = state.filter((crypto) => crypto.id !== action.payload);
       saveToLocalStorage(newState);
+      toast.error(
+        `${action.payload.toUpperCase()} removed from your portfolio.`
+      );
       return newState;
     },
   },

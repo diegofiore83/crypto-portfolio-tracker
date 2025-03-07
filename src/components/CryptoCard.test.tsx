@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router-dom";
 import portfolioReducer from "../store/slices/portfolio-slice";
 import CryptoCard from "./CryptoCard";
 import { RootState } from "../store/store";
@@ -28,7 +29,11 @@ describe("CryptoCard Component", () => {
   });
 
   const renderWithProvider = (component: React.ReactElement) =>
-    render(<Provider store={store}>{component}</Provider>);
+    render(
+      <Provider store={store}>
+        <MemoryRouter>{component}</MemoryRouter>
+      </Provider>
+    );
 
   test("renders CryptoCard correctly (snapshot)", () => {
     const { asFragment } = renderWithProvider(<CryptoCard {...mockProps} />);
@@ -78,7 +83,6 @@ describe("CryptoCard Component", () => {
 
     fireEvent.click(screen.getByText("Add"));
 
-    // ✅ Wait for state update
     await waitFor(() => {
       const updatedState = (store.getState() as RootState).portfolio;
       expect(updatedState).toContainEqual({ id: "bitcoin", quantity: 2 });

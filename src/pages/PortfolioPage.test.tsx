@@ -24,7 +24,6 @@ jest.mock("../components/CryptoCard", () => ({ id }: { id: string }) => (
   <div>Crypto: {id}</div>
 ));
 
-// ✅ Correctly Mock `useAppSelector` with TypeScript
 jest.mock("../store/hooks", () => ({
   useAppSelector: jest.fn(),
 }));
@@ -45,7 +44,6 @@ describe("PortfolioPage Component", () => {
       } as RootState,
     });
 
-    // ✅ Ensure mock always returns a valid state
     mockUseAppSelector.mockImplementation(
       (selector: (state: RootState) => unknown) => {
         const mockState: RootState = {
@@ -56,14 +54,14 @@ describe("PortfolioPage Component", () => {
       }
     );
 
-    jest.clearAllMocks(); // ✅ Prevents stale mock data between tests
+    jest.clearAllMocks();
   });
 
   test("displays loading state when status is 'loading'", () => {
     mockUseAppSelector.mockImplementation((selector) => {
       const mockState: RootState = {
         portfolio: [],
-        crypto: { assets: {}, status: "loading" }, // ✅ Simulate loading state
+        crypto: { assets: {}, status: "loading" },
       };
       return selector(mockState);
     });
@@ -85,7 +83,7 @@ describe("PortfolioPage Component", () => {
     mockUseAppSelector.mockImplementation((selector) => {
       const mockState: RootState = {
         portfolio: [],
-        crypto: { assets: {}, status: "failed" }, // ✅ Simulate error state
+        crypto: { assets: {}, status: "failed" },
       };
       return selector(mockState);
     });
@@ -101,6 +99,56 @@ describe("PortfolioPage Component", () => {
     expect(
       screen.getByText("We couldn't load the cryptocurrency data.")
     ).toBeInTheDocument();
+  });
+
+  test("displays message when portfolio is empty", () => {
+    mockUseAppSelector.mockImplementation((selector) => {
+      const mockState: RootState = {
+        portfolio: [],
+        crypto: { assets: {}, status: "idle" },
+      };
+      return selector === selectEnrichedPortfolio ? [] : selector(mockState);
+    });
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <PortfolioPage />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    expect(
+      screen.getByText(
+        "You can add more cryptocurrencies to your portfolio by clicking on the cards below."
+      )
+    ).toBeInTheDocument();
+  });
+
+  test("does not display empty portfolio message when holdings exist", () => {
+    mockUseAppSelector.mockImplementation((selector) => {
+      const mockState: RootState = {
+        portfolio: [{ id: "bitcoin", quantity: 2 }],
+        crypto: { assets: {}, status: "idle" },
+      };
+      return selector === selectEnrichedPortfolio
+        ? [{ id: "bitcoin" }]
+        : selector(mockState);
+    });
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <PortfolioPage />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    expect(
+      screen.queryByText(
+        "You can add more cryptocurrencies to your portfolio by clicking on the cards below."
+      )
+    ).not.toBeInTheDocument();
   });
 
   test("renders holdings when enrichedPortfolio is not empty", () => {
