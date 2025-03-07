@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid2 as Grid, Typography } from "@mui/material";
 import CryptoCard from "../components/CryptoCard";
 import HoldingCard from "../components/HoldingCard";
@@ -11,6 +11,12 @@ import { selectEnrichedPortfolio } from "../store/selectors/portfolio-selectors"
 const PortfolioPage: React.FC = () => {
   const enrichedPortfolio = useAppSelector(selectEnrichedPortfolio);
   const { assets, status } = useAppSelector((state: RootState) => state.crypto);
+
+  useEffect(() => {
+    if (enrichedPortfolio.length > 0) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [enrichedPortfolio]);
 
   if (status === "loading") {
     return <Loading message="Loading your portfolio and crypto assets..." />;
