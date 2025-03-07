@@ -107,7 +107,11 @@ const HistoricChart: React.FC<HistoricChartProps> = ({ id, name }) => {
               ref={chartRef}
               data={{
                 labels: marketData.prices.map(([timestamp]) =>
-                  new Date(timestamp).toLocaleDateString("DD/MM/YYYY")
+                  new Date(timestamp).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                  })
                 ),
                 datasets: [
                   {
