@@ -1,4 +1,10 @@
-import { render, screen, act } from "@testing-library/react";
+import {
+  render,
+  screen,
+  act,
+  fireEvent,
+  waitFor,
+} from "@testing-library/react";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import PortfolioPage from "./PortfolioPage";
@@ -231,5 +237,42 @@ describe("PortfolioPage Component", () => {
       top: 0,
       behavior: "smooth",
     });
+  });
+
+  test("search and filter cryptos when assets loaded", async () => {
+    mockUseAppSelector.mockImplementation((selector) => {
+      const mockState: RootState = {
+        portfolio: [],
+        crypto: {
+          assets: {
+            bitcoin: mockCryptoAssets[0],
+            ethereum: mockCryptoAssets[1],
+          },
+          status: "idle",
+        },
+      };
+      return selector(mockState);
+    });
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <PortfolioPage />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    fireEvent.change(screen.getByLabelText("Search Cryptocurrencies"), {
+      target: { value: "Eth" },
+    });
+    await waitFor(
+      () => {
+        expect(screen.queryByText(/ethereum/i)).toBeInTheDocument();
+        expect(screen.queryByText(/bitcoin/i)).not.toBeInTheDocument();
+      },
+      {
+        timeout: 500,
+      }
+    );
   });
 });

@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Grid2 as Grid, Typography } from "@mui/material";
+import React, { useEffect, useMemo, useState } from "react";
+import { Grid2 as Grid, TextField, Typography } from "@mui/material";
 import CryptoCard from "../components/CryptoCard";
 import HoldingCard from "../components/HoldingCard";
 import Error from "../components/Error";
@@ -11,6 +11,26 @@ import { selectEnrichedPortfolio } from "../store/selectors/portfolio-selectors"
 const PortfolioPage: React.FC = () => {
   const enrichedPortfolio = useAppSelector(selectEnrichedPortfolio);
   const { assets, status } = useAppSelector((state: RootState) => state.crypto);
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState(searchQuery);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 300);
+
+    return () => clearTimeout(handler);
+  }, [searchQuery]);
+
+  const filteredAssets = useMemo(() => {
+    if (!debouncedQuery) return Object.values(assets);
+    return Object.values(assets).filter(
+      (crypto) =>
+        crypto.name.toLowerCase().includes(debouncedQuery.toLowerCase()) ||
+        crypto.symbol.toLowerCase().includes(debouncedQuery.toLowerCase())
+    );
+  }, [debouncedQuery, assets]);
 
   useEffect(() => {
     if (enrichedPortfolio.length > 0) {
@@ -49,12 +69,19 @@ const PortfolioPage: React.FC = () => {
         Add More Cryptos
       </Typography>
 
+      <TextField
+        label="Search Cryptocurrencies"
+        variant="outlined"
+        fullWidth
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        sx={{ marginBottom: 2 }}
+      />
+
       <Grid container spacing={2}>
-        {Object.values(assets)
-          .filter((item) => item !== null)
-          .map((item) => (
-            <CryptoCard key={item.id} {...item} />
-          ))}
+        {filteredAssets.map((item) => (
+          <CryptoCard key={item.id} {...item} />
+        ))}
       </Grid>
     </div>
   );
