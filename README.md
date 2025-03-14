@@ -85,6 +85,7 @@ The application is deployed on **GitHub Pages** and is available at:
 
 To ensure security and mask the API key, a **.NET Core C# API** has been deployed to proxy the requests to the CoinGecko API. The backend is accessible at:
 🔗 **[API Swagger Documentation](https://crypto.neapoliswebdigital.com/swagger)**
+🔗 **[API Repository](https://github.com/diegofiore83/crypto-portfolio-api/)**
 
 - The backend acts as a **secure proxy**, preventing direct API key exposure.
 - **CORS Restrictions**: Calls are restricted to `localhost` and the **GitHub Pages URL** to enhance security.
